@@ -2,32 +2,33 @@ import sys
 input = sys.stdin.readline
 
 word = list(map(str, input().strip()))
+container = []
 
 N = int(input())
 
-cs = len(word)
 
 for _ in range(N):
+    cs = len(word)
     inputs = input().strip()
     if inputs == "L":
         if cs > 0:
-            cs -= 1
+            a = word.pop()
+            container.append(a)
     elif inputs == "D":
-        if cs < len(word):
-            cs += 1
+        if len(container) > 0:
+            a = container.pop()
+            word.append(a)
     elif inputs == "B":
-        if cs != 0:
-            word.remove(word[cs-1])
-            cs -= 1
+        if cs > 0:
+            word.pop()
     else:
         alpha = inputs[-1]
-        if cs == len(word):
-            word.append(alpha)
-            cs += 1
-        else:
-            word.insert(cs, alpha)
-            cs += 1
+        word.append(alpha)
+
+for _ in range(len(container)):
+    i = container.pop()
+    word.append(i)
 
 print("".join(word))
 
-# 시간 초과 => 스택 사용해서 다시 풀어보기
+# 스택과 배열이용의 시간 차이?
