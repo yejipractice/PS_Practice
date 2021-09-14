@@ -5,10 +5,10 @@ idx = len(n)-1
 
 res = 0
 
-while idx >= 0:
-    r = n[idx]
-    if not r.isdigit():
-        r = ord(r)-ord("A")+10
-    res += (num**idx)*r
+alpha = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+for i in n:
+    res += alpha.index(i)*(num**idx)
     idx -= 1
+
 print(res)
