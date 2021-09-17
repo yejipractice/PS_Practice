@@ -1,28 +1,22 @@
 import sys
 input = sys.stdin.readline
 
+INF = 100000
+mod = 1000000009
+
+memo = [[0]*4 for _ in range(INF+1)]
+memo[1] = [0, 1, 0, 0]
+memo[2] = [0, 0, 1, 0]
+memo[3] = [0, 1, 1, 1]
+
+for i in range(4, INF+1):
+    memo[i][1] = memo[i-1][2] % mod+memo[i-1][3] % mod
+    memo[i][2] = memo[i-2][1] % mod+memo[i-2][3] % mod
+    memo[i][3] = memo[i-3][1] % mod+memo[i-3][2] % mod
+
+    # mod로 나눠서 저장해야 시간 초과가 안 걸림
+
 n = int(input())
-nums = []
 for _ in range(n):
-    nums.append(int(input()))
-
-max_num = max(nums)
-
-memo = [[]] * (max_num+1)
-memo[1] = [[1]]
-memo[2] = [[2]]
-memo[3] = [[1, 2], [2, 1], [3]]
-
-for i in range(4, max_num+1):
-    r = []
-    for j in range(1, i):
-        for ii in memo[j]:
-            for jj in memo[i-j]:
-                if ii[-1] != jj[0]:
-                    newL = ii+jj
-                    if r.count(newL) == 0:
-                        r.append(newL)
-    memo[i] = r
-
-for i in nums:
-    print(len(memo[i]))
+    i = int(input())
+    print(sum(memo[i]) % mod)
