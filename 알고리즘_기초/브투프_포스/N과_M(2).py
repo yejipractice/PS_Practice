@@ -1,10 +1,20 @@
-from itertools import combinations
 import sys
 input = sys.stdin.readline
 
 n, m = map(int, input().split())
 
-result = combinations([i for i in range(1, n+1)], m)
+s = []
 
-for i in result:
-    print(*i)
+
+def dfs(start):
+    if len(s) == m:
+        print(" ".join(map(str, s)))
+        return
+    for i in range(start, n+1):
+        if i not in s:
+            s.append(i)
+            dfs(i+1)
+            s.pop()
+
+
+dfs(1)
