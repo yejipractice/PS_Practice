@@ -1,19 +1,27 @@
 tc = int(input())
 for t in range(1, tc+1):
-    answer = []
     n = int(input())
-    inputs = list(map(int, input().split()))
-    xs = inputs[:n]
-    ms = inputs[n:]
-    for i in range(n-1):
-        x1, x2 = xs[i], xs[i+1]
-        m1, m2 = ms[i], ms[i+1]
-        m11 = m1**(1/2)
-        m22 = m2**(1/2)
-        p = round(m11/(m11+m22),10)
-        ans = x1+(p)*(x2-x1)
-        answer.append(round(ans, 10))
-    print("#"+str(t), end=" ")
-    for tt in range(len(answer)):
-        print(format(answer[tt],".10f"), end=" ")  
-    print()
+    line = list(map(int, input().split()))
+    x = line[:n]
+    m = line[n:]
+    ans = []
+    for i in range(1, n):
+        low = x[i-1]
+        high = x[i]
+        while high - low > 1/(10**12):
+            mid = (low+high) /2
+            left = right = 0
+            for i in range(n):
+                force = m[i] / (mid-x[i])**2
+                if x[i] < mid:
+                    left+=force
+                else:
+                    right += force
+            if left < right:
+                high = mid
+            else:
+                low = mid
+        ans.append(mid)
+    print('#%s %s' % (tc, ' '.join('%.10f' % f for f in ans)))
+    
+    # 문제 이해 부족 -> 이분탐식 응용법만 익히고 넘어감 
