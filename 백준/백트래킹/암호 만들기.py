@@ -1,6 +1,7 @@
 import copy
 
 aei = ["a", "e", "i", "o", "u"]
+# a in "aeiou" 가능
 
 l, c = map(int, input().split())
 alphas = list(map(str, input().split()))
