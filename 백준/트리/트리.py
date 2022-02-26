@@ -1,21 +1,25 @@
-def dfs(num, arr):
-    arr[num] = -2
-    for i in range(len(arr)):
-        if num == arr[i]:
-            dfs(i, arr)
-
+import sys
+input = sys.stdin.readline
 
 n = int(input())
-arr = list(map(int, input().split()))
+tree = list(map(int, input().split()))
 k = int(input())
-count = 0
 
-dfs(k, arr)
-count = 0
-for i in range(len(arr)):
-    if arr[i] != -2 and i not in arr:
-        count += 1
-print(count)
+
+def dfs(node, tree):
+    tree[node] = -2
+    for idx in range(n):
+        if tree[idx] == node:
+            dfs(idx, tree)
+
+
+dfs(k, tree)
+cnt = 0
+for node in range(n):
+    if tree[node] != -2 and node not in tree:
+        cnt += 1
+print(cnt)
+
 
 #  dfs함수
 
